@@ -52,34 +52,38 @@ foreach my $line (@userlistarray){
 		my $account = $1;
 		my $user = $2;
 		my $password = $3;
-		print "\n";
-		print "\n";
-		print "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n";
-		print "For User [ Account \'$account\', User \'$user\', Password '$password' ]\n";
-		print "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n";
-		print "\n";
-		print "\n";
 
-		my $sel_cmd = "cd /root/eucalyptus_ui_test; export DISPLAY=:0;";
-		$sel_cmd .= " ./runtest_view_page.py -i $clc_ip -p $userconsole_port -a $account -u $user -w $password -t $this_test";
+		if( $user ne "admin" ){
 
-		my $cmd = $SSH_PREFIX . " \"" . $sel_cmd . "\"";
+			print "\n";
+			print "\n";
+			print "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n";
+			print "For User [ Account \'$account\', User \'$user\', Password '$password' ]\n";
+			print "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n";
+			print "\n";
+			print "\n";
 
-		print "CMD: $cmd\n";
-		my $output = `$cmd`;
-		print "\n";
-		print $output . "\n";
-		print "\n";
+			my $sel_cmd = "cd /root/eucalyptus_ui_test; export DISPLAY=:0;";
+			$sel_cmd .= " ./runtest_view_page.py -i $clc_ip -p $userconsole_port -a $account -u $user -w $password -t $this_test";
 
-		if( $output =~ /^Failures:\s+(\d+)/m ){
-			if( $1 > 0 ){
-				print "[TEST_REPORT]\tFAILED: Failures > 0\n";
+			my $cmd = $SSH_PREFIX . " \"" . $sel_cmd . "\"";
+
+			print "CMD: $cmd\n";
+			my $output = `$cmd`;
+			print "\n";
+			print $output . "\n";
+			print "\n";
+
+			if( $output =~ /^Failures:\s+(\d+)/m ){
+				if( $1 > 0 ){
+					print "[TEST_REPORT]\tFAILED: Failures > 0\n";
+				};
 			};
-		};
 
-		if( $output =~ /^Errors:\s+(\d+)/m ){
-			if( $1 > 0 ){
-				print "[TEST_REPORT]\tFAILED: Errors > 0\n";
+			if( $output =~ /^Errors:\s+(\d+)/m ){
+				if( $1 > 0 ){
+					print "[TEST_REPORT]\tFAILED: Errors > 0\n";
+				};
 			};
 		};
 
