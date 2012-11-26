@@ -1,3 +1,22 @@
+user_console_generate_keypair_test
+===========================
+
+## Desciption
+
+Create a new keypair on User Console and deletes it immediately
+
+## Procedure
+
+1. SSH into the In-house Selenium Remote Server Machine
+
+2. Run the testcase "generate_keypairs" for the se34euca command "runtest_keypairs.py" for first 2 non-admin users in the file "../share/ui-test-dir/ui-test-user-info.txt"
+
+3. Using the se34euca command "run_test_view_page.py"'s option "get_dashboard_source" to verify that the keys were generated.
+
+4. Run the testcase" delete_keypairs" to delete the previously generated keypairs
+
+5. similar to the step 3. above, verify that the keypairs were deleted.
+
 # Eucalyptus Testunit Framework
 
 Eucalyptus Testunit Framework is designed to run a list of test scripts written by Eucalyptus developers.
